@@ -1,62 +1,87 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Login</title>
-        <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-        <script>
-            const supabaseUrl = 'YOUR_SUPABASE_URL'
-            const supabaseKey = 'YOUR_SUPABASE_PUBLIC_KEY'
-            const supabase = supabase.createClient(supabaseUrl, supabaseKey)
-        </script>
-    </head>
-    <body>
-        <h1>Login</h1>
-        
-        <!-- Email/Password Login -->
-        <div>
-            <input type="email" id="email" placeholder="Email">
-            <input type="password" id="password" placeholder="Password">
-            <button id="sign-in">Sign In</button>
-        </div>
-        
-        <!-- Or OAuth providers -->
-        <button id="sign-in-google">Sign In with Google</button>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .login-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 300px;
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4285f4;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #3367d6;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button id="loginBtn">Login</button>
+        <div id="errorMsg" class="error"></div>
+    </div>
 
-        <script>
-            // Email/password login
-            document.getElementById('sign-in').addEventListener('click', async () => {
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-                
-                const { data, error } = await supabase.auth.signInWithPassword({
-                    email: email,
-                    password: password
-                });
-                
-                if (error) {
-                    alert(error.message);
-                } else {
-                    window.location.href = '/'; // Redirect to protected page
-                }
+    <script>
+        const supabaseUrl = 'YOUR_SUPABASE_URL';
+        const supabaseKey = 'YOUR_SUPABASE_PUBLIC_KEY';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        
+        document.getElementById('loginBtn').addEventListener('click', async function() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMsg');
+            
+            errorMsg.textContent = '';
+            
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password
             });
             
-            // Google OAuth login
-            document.getElementById('sign-in-google').addEventListener('click', async () => {
-                const { data, error } = await supabase.auth.signInWithOAuth({
-                    provider: 'google',
-                });
-                
-                if (error) {
-                    alert(error.message);
-                }
-            });
-            
-            // Check if user is already logged in
-            supabase.auth.getSession().then(({ data: { session } }) => {
-                if (session) {
-                    window.location.href = '/';
-                }
-            });
-        </script>
-    </body>
+            if (error) {
+                errorMsg.textContent = error.message;
+            } else {
+                window.location.href = '/index.html';
+            }
+        });
+    </script>
+</body>
 </html>
