@@ -1,0 +1,3381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASI Ukpo Hospital - Premier Healthcare in Calabar, Nigeria</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========== BASE STYLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ========== HEADER ========== */
+        header {
+            background: rgba(44, 90, 160, 0.93) !important;
+            backdrop-filter: blur(5px);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        header.shrunk {
+            padding: 0.3rem 0 !important;
+            background: #204574ee !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.09);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+            transition: height 0.2s;
+        }
+
+        header.shrunk .logo img {
+            height: 32px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            position: relative;
+            z-index: 999;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            position: relative;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .nav-links a.active,
+        .nav-links a:focus,
+        .nav-links a:hover {
+            background: none;
+            color: #fff;
+        }
+
+        .nav-links a.active::after,
+        .nav-links a:focus::after,
+        .nav-links a:hover::after {
+            content: "";
+            position: absolute;
+            left: 20%;
+            right: 20%;
+            bottom: 6px;
+            height: 3px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #3ebfff, #2c5aa0, #3ebfff);
+            box-shadow: 0 0 8px 2px #3ebfff66;
+            opacity: 1;
+            transition: all 0.2s;
+        }
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 20%;
+            right: 20%;
+            bottom: 6px;
+            height: 3px;
+            opacity: 0;
+            transition: all 0.2s;
+        }
+
+        /* Dropdown Styling */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #2c5aa0;
+            list-style: none;
+            padding: 0.5rem 0;
+            display: none;
+            flex-direction: column;
+            min-width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: opacity 0.3s, transform 0.3s;
+            opacity: 0;
+            transform: translateY(10px);
+            z-index: 1001;
+        }
+
+        .dropdown-menu li {
+            padding: 0;
+        }
+
+        .dropdown-menu li a {
+            color: white;
+            padding: 0.5rem 1rem;
+            display: block;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .dropdown-menu li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .dropdown:hover .dropdown-menu,
+        .dropdown:focus-within .dropdown-menu {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        /* ===== MEGA MENU ===== */
+        .mega {
+            position: relative;
+        }
+
+        .mega-menu {
+            display: none;
+            position: absolute;
+            left: 0;
+            right: auto;
+            top: 100%;
+            background: #275292;
+            padding: 2rem 2rem 1.5rem 2rem;
+            min-width: 480px;
+            border-radius: 12px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+            z-index: 1002;
+            flex-direction: row;
+            gap: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s;
+            max-width: 90vw;
+            box-sizing: border-box;
+            transform-origin: top left;
+        }
+
+        .mega:hover .mega-menu,
+        .mega:focus-within .mega-menu,
+        .mega-menu:hover {
+            display: flex;
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .mega-menu-col {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .mega-menu a {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 0.7rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .mega-menu a:hover {
+            background: rgba(255,255,255,0.13);
+        }
+
+        .menu-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            justify-content: center;
+        }
+        .menu-icon img {
+            width: 28px;
+            height: 28px;
+        }
+        .menu-desc {
+            display: block;
+            font-size: 0.84rem;
+            color: #d6e6fa;
+            margin-top: 2px;
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            overflow: hidden;
+            background: #19498A;
+        }
+
+        .hero-parallax {
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            transition: transform 0.6s cubic-bezier(.45,.05,.55,.95);
+        }
+        .layer-bg {
+            background: linear-gradient(135deg, #19498A 60%, #2c5aa0 100%);
+            opacity: 0.8;
+            z-index: 0;
+        }
+        .layer-mid {
+            background: url('https://www.transparenttextures.com/patterns/diagmonds.png'), 
+                        url('https://cdn.pixabay.com/photo/2016/03/23/17/45/medical-1274382_1280.png');
+            opacity: 0.18;
+            background-repeat: repeat, no-repeat;
+            background-size: auto, 50%;
+            background-position: center, bottom 40px left 10%;
+            z-index: 1;
+        }
+        .layer-fg {
+            background: url('https://cdn.pixabay.com/photo/2017/01/31/19/13/heart-2028230_1280.png');
+            background-repeat: no-repeat;
+            background-size: 420px auto;
+            background-position: right 5% bottom 10%;
+            opacity: 0.10;
+            z-index: 2;
+        }
+
+        .hero-slideshow {
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            z-index: 3;
+            overflow: hidden;
+        }
+
+        .hero-slide {
+            position: absolute;
+            width: 100%; 
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transform: scale(1.12);
+            transition: opacity 1.5s cubic-bezier(.4,0,.2,1), transform 2.2s cubic-bezier(.4,0,.2,1);
+            will-change: opacity, transform;
+            pointer-events: none;
+        }
+        .hero-slide.active {
+            opacity: 1;
+            transform: scale(1.0);
+            pointer-events: auto;
+        }
+
+        .hero-caption {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            text-align: center;
+            background: rgba(22, 38, 74, 0.85);
+            border-radius: 12px;
+            box-shadow: 0 6px 36px rgba(22,38,74,0.18);
+            padding: 2.2rem 2rem 1.8rem;
+            min-width: 320px;
+            max-width: 95vw;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .caption-anim.caption-in {
+            animation: captionIn 0.9s cubic-bezier(.4,0,.2,1);
+            opacity: 1;
+            pointer-events: all;
+        }
+        .caption-anim.caption-out {
+            animation: captionOut 0.5s cubic-bezier(.4,0,.2,1);
+            opacity: 0;
+        }
+        @keyframes captionIn {
+            from { opacity: 0; transform: translate(-50%,30px);}
+            to   { opacity: 1; transform: translate(-50%,0);}
+        }
+        @keyframes captionOut {
+            from { opacity: 1; transform: translate(-50%,0);}
+            to   { opacity: 0; transform: translate(-50%,-20px);}
+        }
+        .hero-caption h1 {
+            font-size: 4.0rem;
+            margin-bottom: 1rem;
+            line-height: 1.08;
+            letter-spacing: .01em;
+            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+            text-shadow: 0 2px 18px #0004;
+        }
+        .hero-caption p {
+            font-size: 1.2rem;
+            margin-bottom: 0;
+            color: #f7f9fc;
+            text-shadow: 0 2px 8px #0002;
+        }
+
+        .lottie-overlay {
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            z-index: 4;
+            pointer-events: none;
+            opacity: 0.60;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 7vh;
+        }
+        .cta-buttons {
+            display: inline-flex;
+            gap: 1.1rem;
+            margin-top: 1.7rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn {
+            padding: 0.95rem 2.3rem;
+            border-radius: 50px;
+            font-size: 1.12rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.26s cubic-bezier(.4,0,.2,1);
+            border: none;
+            cursor: pointer;
+            margin: 0 0.2rem;
+            outline: none;
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #ff6b35, #f7931e 80%);
+            color: #fff;
+            box-shadow: 0 4px 24px #ff6b3540;
+        }
+        .btn-secondary {
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            border: 2px solid #fff;
+        }
+        .btn:hover, .btn:focus {
+            transform: translateY(-2px) scale(1.06);
+            box-shadow: 0 8px 36px #ff6b3580, 0 0 0 3px #fff3;
+        }
+
+        /* ========== RESPONSIVE STYLES ========== */
+
+        /* Tablet */
+        @media (max-width: 900px) {
+            .container {
+                max-width: 100vw;
+                padding: 0 10px;
+            }
+            .hero-caption h1 { font-size: 2.1rem;}
+            .hero { min-height: 420px;}
+            .mega-menu {
+                flex-direction: column;
+                min-width: 220px;
+                padding: 1rem;
+                gap: 1rem;
+            }
+            .mega-menu-col {
+                gap: 0.5rem;
+            }
+        }
+
+        /* Mobile Navigation */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .logo {
+                font-size: 1.3rem;
+            }
+            .logo img {
+                height: 36px;
+            }
+            .nav-links {
+                position: fixed;
+                top: 68px;
+                left: 0;
+                right: 0;
+                background: rgba(44,90,160,0.97);
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0;
+                width: 100vw;
+                max-width: 100vw;
+                padding: 1rem 0;
+                transition: transform 0.3s;
+                transform: translateY(-120%);
+                z-index: 999;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+            }
+            .nav-links.open {
+                transform: translateY(0);
+            }
+            .nav-links li {
+                width: 100%;
+            }
+            .nav-links a {
+                width: 100%;
+                padding: 1.2rem 2rem;
+                font-size: 1.1rem;
+                text-align: left;
+            }
+            .dropdown-menu, .mega-menu {
+                position: static;
+                box-shadow: none;
+                border-radius: 0;
+                background: #245077;
+                min-width: 0;
+                opacity: 1 !important;
+                transform: none !important;
+                display: none !important;
+                transition: none;
+            }
+            .dropdown.open .dropdown-menu,
+            .mega.open .mega-menu {
+                display: flex !important;
+                opacity: 1 !important;
+                pointer-events: auto;
+                flex-direction: column;
+                background: #245077;
+                gap: 0.2rem;
+            }
+            .dropdown-menu li a, .mega-menu a {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+            /* Hamburger styles */
+            .nav-toggle {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                width: 42px;
+                height: 42px;
+                cursor: pointer;
+                background: none;
+                border: none;
+                z-index: 1001;
+            }
+            .nav-toggle span {
+                display: block;
+                height: 4px;
+                margin: 5px 0;
+                border-radius: 2px;
+                background: #fff;
+                transition: all 0.3s;
+                width: 28px;
+            }
+            .nav-toggle.open span:nth-child(1) {
+                transform: rotate(45deg) translate(7px, 6px);
+            }
+            .nav-toggle.open span:nth-child(2) {
+                opacity: 0;
+            }
+            .nav-toggle.open span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+        }
+
+        /* Mobile Hero Caption */
+        @media (max-width: 600px) {
+            .hero {
+                min-height: 340px;
+                height: 70vh;
+                align-items: flex-end;
+                padding-top: 60px;
+            }
+            .hero-caption {
+                padding: 1.3rem 0.8rem 1.1rem;
+                min-width: 0;
+                width: 98vw;
+                left: 1%;
+                transform: none;
+                bottom: 12%;
+                top: 80px;
+            }
+            .hero-caption h1 {
+                font-size: 1.25rem;
+            }
+            .hero-caption p {
+                font-size: 0.98rem;
+            }
+            .hero-content { margin-bottom: 3vh;}
+            .btn { padding: 0.7rem 1.2rem; font-size: 1rem;}
+        }
+
+        @media (max-width: 600px) {
+            .btn {
+                padding: 0.4rem 0.7rem;   /* smaller padding */
+                font-size: 0.7rem;        /* smaller text */
+                min-width: 0;             /* if you set min-width elsewhere */
+                margin: 0 0.1rem;         /* reduce margin between buttons */
+            }
+            .cta-buttons {
+                gap: 0.3rem;              /* less gap between buttons */
+                flex-wrap: wrap;          /* allows stacking if not enough space */
+            }
+        }
+
+        /* Hide parallax on mobile for perf */
+        @media (max-width: 600px) {
+            .hero-parallax {
+                display: none;
+            }
+        }
+        /* Services Section */
+                /* Services Section - Base Styles (All Devices) */
+        .services {
+            padding: 2.5rem 0;
+            background: #f8fafd;
+        }
+
+        .services .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .services .section-title {
+            color: #0a2463;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .services .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b35, #f7931e);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .services-carousel-window {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2.5rem auto 1.5rem;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .services-carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-out;
+            width: 100%;
+            gap: 15px;
+            padding: 5px 0;
+        }
+
+        .service-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(44, 90, 160, 0.12);
+            margin: 0 5px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            flex: 0 0 auto;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            box-shadow: 0 12px 32px rgba(255, 154, 60, 0.18), 
+                        0 4px 12px rgba(44, 90, 160, 0.1);
+            transform: translateY(-8px);
+        }
+
+        .service-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            background: #e7eaf0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .service-image.loaded {
+            opacity: 1;
+        }
+
+        .service-content {
+            padding: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.8rem;
+            color: #2c5aa0;
+            line-height: 1.3;
+        }
+
+        .service-card p {
+            color: #4a5568;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .service-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .service-list li {
+            padding: 0.35rem 0 0.35rem 1.75rem;
+            position: relative;
+            font-size: 0.95rem;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+
+        .service-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background: #fff;
+            color: #2c5aa0;
+            border: none;
+            font-size: 1.8rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(44, 90, 160, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            opacity: 0.9;
+        }
+
+        .carousel-control:hover {
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+            background: #2c5aa0;
+            color: #fff;
+        }
+
+        .carousel-control.prev {
+            left: 10px;
+        }
+
+        .carousel-control.next {
+            right: 10px;
+        }
+
+        .carousel-progress-bar {
+            width: 300px;
+            height: 6px;
+            background: #e1e9f7;
+            border-radius: 5px;
+            margin: 1.5rem auto 0;
+            overflow: hidden;
+        }
+
+        .carousel-progress {
+            background: linear-gradient(90deg, #ff6b35, #f7931e);
+            height: 100%;
+            width: 0%;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        /* Tablet Styles (768px - 1024px) */
+        @media (max-width: 1024px) {
+            .services .section-title {
+                font-size: 2rem;
+            }
+            
+            .service-card {
+                min-width: calc(50% - 20px);
+                margin: 0 10px;
+            }
+            
+            .service-image {
+                height: 180px;
+            }
+            
+            .service-content {
+                padding: 1.2rem;
+            }
+            
+            .service-card h3 {
+                font-size: 1.15rem;
+            }
+            
+            .service-list li {
+                font-size: 0.9rem;
+                padding: 0.3rem 0 0.3rem 1.5rem;
+            }
+            
+            .carousel-control {
+                width: 40px;
+                height: 40px;
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Large Mobile Styles (481px - 767px) */
+        @media (max-width: 767px) {
+            .services {
+                padding: 2rem 0;
+            }
+            
+            .services .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 1.2rem;
+            }
+            
+            .services-carousel-track {
+                gap: 10px;
+            }
+            
+            .service-card {
+                min-width: calc(85% - 10px);
+                border-radius: 14px;
+            }
+            
+            .service-image {
+                height: 160px;
+            }
+            
+            .service-content {
+                padding: 1rem;
+            }
+            
+            .service-card h3 {
+                font-size: 1.1rem;
+                margin-bottom: 0.6rem;
+            }
+            
+            .service-card p {
+                font-size: 0.88rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .service-list li {
+                font-size: 0.85rem;
+                padding: 0.25rem 0 0.25rem 1.3rem;
+            }
+            
+            .carousel-progress-bar {
+                width: 250px;
+                height: 5px;
+            }
+        }
+
+        /* Small Mobile Styles (up to 480px) */
+        @media (max-width: 480px) {
+            .services {
+                padding: 1.5rem 0;
+            }
+            
+            .services .section-title {
+                font-size: 1.6rem;
+                padding-bottom: 10px;
+            }
+            
+            .services .section-title::after {
+                height: 3px;
+                width: 60px;
+            }
+            
+            .service-card {
+                min-width: 90%;
+                margin: 0 5px;
+                border-radius: 12px;
+            }
+            
+            .service-image {
+                height: 140px;
+            }
+            
+            .service-content {
+                padding: 0.9rem;
+            }
+            
+            .service-card h3 {
+                font-size: 1rem;
+            }
+            
+            .service-card p {
+                font-size: 0.82rem;
+            }
+            
+            .service-list li {
+                font-size: 0.8rem;
+                padding: 0.2rem 0 0.2rem 1.2rem;
+            }
+            
+            .carousel-control {
+                width: 36px;
+                height: 36px;
+                font-size: 1.4rem;
+            }
+            
+            .carousel-progress-bar {
+                width: 200px;
+                height: 4px;
+            }
+        }
+        /* About Section */
+                
+        .about {
+            padding: 100px 0;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            background: url('https://cancer.asiukpo.com/img/chemotherapy.jpg?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+            background-size: cover;
+            opacity: 1;
+            z-index: 0;
+            transition: width 0.4s;
+        }
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #2c5aa0;
+        }
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin-bottom: 1.5rem;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border-radius: 12px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border: 0.5px solid #2c5aa0;
+            box-shadow: 0 6px 28px #19498a19;
+            transition: all 0.3s cubic-bezier(.44,.11,.62,.89);
+        }
+        .stat:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c5aa0;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .stat-suffix {
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: #2c5aa0;
+            margin-left: 0.1em;
+            display: inline-block;
+            vertical-align: middle;
+            letter-spacing: 0.02em;
+        }
+        .stat-label {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1000px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+            .about::before {
+                width: 100%;
+                height: 180px;
+                top: 0;
+                left: 0;
+                right: 0;
+                background-position: top center;
+                opacity: 0.22;
+                z-index: 0;
+            }
+            .about-text {
+                padding: 2rem 0 0 0;
+            }
+        }
+        @media (max-width: 700px) {
+            .about {
+                padding: 48px 0;
+            }
+            .about-text h2 {
+                font-size: 1.6rem;
+                margin-bottom: 1.1rem;
+            }
+            .about-text p {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+            .stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+                margin-top: 1.5rem;
+            }
+            .stat {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            .stat-number {
+                font-size: 1.4rem;
+            }
+            .stat-suffix {
+                font-size: 1.15rem;
+            }
+        }
+        @media (max-width: 500px) {
+            .about {
+                padding: 32px 0;
+            }
+            .about-content {
+                gap: 1.2rem;
+            }
+            .video-container {
+                padding-bottom: 62%; /* slightly taller for small screens */
+            }
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+                margin-top: 1rem;
+            }
+            .stat {
+                padding: 0.8rem 0.7rem;
+            }
+        }
+
+        /* Departments Section */
+        .departments {
+            padding: 100px 0;
+            background: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            position: relative;
+            color: white;
+            overflow: hidden;
+        }
+        .departments::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(44, 90, 160, 0.9) 0%, rgba(30, 64, 128, 0.9) 100%);
+            z-index: 0;
+        }
+        .departments .container {
+            position: relative;
+            z-index: 1;
+        }
+        .departments .section-title {
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .departments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .department-card {
+            perspective: 1000px;
+            height: 350px;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .department-card:hover .card-inner,
+        .department-card:focus-within .card-inner {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%; height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0; /* Remove padding to let image reach top */
+        }
+        .card-back {
+            transform: rotateY(180deg);
+            justify-content: center;
+            padding: 1.5rem; /* Keep padding only on back */
+        }
+        .department-card .card-front .img-container {
+            width: 100%;
+            height: 180px;
+            border-radius: 12px 12px 0 0; /* Only round top corners */
+            overflow: hidden;
+            border: none;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 1rem;
+        }
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .card-content {
+            padding: 0 1.5rem 1.5rem; /* Add padding to content area */
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .department-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            font-weight: 600;
+        }
+        .specialty-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 1.0rem !important;
+            margin-top: auto;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+        }
+        .back-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .back-content h3 {
+            font-size: 1.9rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            font-weight: 600;
+        }
+        .bio-content {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+        .bio-content p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        /* Scrollbar styling */
+        .bio-content::-webkit-scrollbar {
+            width: 5px;
+        }
+        .bio-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .bio-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1100px) {
+            .departments {
+                padding: 60px 0;
+            }
+            .departments .section-title {
+                font-size: 1.8rem;
+            }
+            .departments-grid {
+                gap: 1.2rem;
+            }
+            .department-card {
+                height: 300px;
+            }
+            .department-card .card-front .img-container {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .departments {
+                padding: 38px 0;
+                background-attachment: scroll;
+            }
+            .departments .section-title {
+                font-size: 1.2rem;
+                margin-bottom: 1.1rem;
+            }
+            .departments-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+            .department-card {
+                height: auto;
+                min-height: 210px;
+                max-width: 95vw;
+                margin: 0 auto;
+            }
+            .department-card .card-front .img-container {
+                height: 110px;
+                min-height: 60px;
+                max-height: 120px;
+            }
+            .card-back {
+                padding: 0.85rem;
+            }
+            .card-content {
+                padding: 0 0.85rem 0.85rem;
+            }
+            .department-card h3,
+            .back-content h3 {
+                font-size: 1.05rem;
+                margin-bottom: 0.6rem;
+            }
+            .specialty-badge {
+                padding: 0.3rem 0.7rem;
+                font-size: 0.88rem !important;
+            }
+            .bio-content p {
+                font-size: 0.85rem;
+                margin-bottom: 0.7rem;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .departments {
+                padding: 18px 0;
+            }
+            .departments-grid {
+                gap: 0.5rem;
+            }
+            .department-card {
+                height: auto;
+                min-height: 120px;
+                max-width: 99vw;
+                margin: 0 auto;
+            }
+            .department-card .card-front .img-container {
+                height: 62px;
+                min-height: 38px;
+                max-height: 72px;
+            }
+            .card-back {
+                padding: 0.55rem;
+            }
+            .card-content {
+                padding: 0 0.55rem 0.55rem;
+            }
+            .department-card h3,
+            .back-content h3 {
+                font-size: 2.0rem;
+            }
+            .specialty-badge {
+                padding: 0.18rem 0.38rem;
+                font-size: 0.9rem !important;
+            }
+        }
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            position: relative;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1584473457406-6240486418e9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+            background-size: cover;
+            opacity: 0.1;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: #2c5aa0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: #2c5aa0;
+        }
+
+        .form-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2c5aa0;
+            box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c5aa0;
+            color: white;
+            padding: 3rem 0 1rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+            background-size: cover;
+            opacity: 0.05;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p, 
+        .footer-section li {
+            margin-bottom: 0.5rem;
+            color: #b8d4f0;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #b8d4f0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #b8d4f0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            /*.nav-links {
+                display: none;
+            }*/
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-content, 
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about::before,
+            .contact::before {
+                display: none;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid,
+            .departments-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close:hover {
+            color: #2c5aa0;
+        }
+
+        /* Video Container Styles */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            margin: 2rem 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        /* Department Flip Cards - Enhanced Version */
+        .departments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .department-card {
+            perspective: 1000px;
+            height: 420px; /* Slightly increased height for better content fit */
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s ease;
+            transform-style: preserve-3d;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .department-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        /* Front Card Styling */
+        .card-front {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            color: white;
+        }
+
+        .img-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #ff6b35;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-front h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: inherit;
+        }
+
+        .card-front p {
+            font-size: 1rem;
+            color: #b8d4f0;
+            margin-bottom: 0.5rem;
+        }
+
+        .specialty-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-top: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Back Card Styling */
+        .card-back {
+            background: white;
+            transform: rotateY(180deg);
+            padding: 1.8rem;
+            color: #333; /* Default text color set to dark gray */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .back-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-back h3 {
+            color: #2c5aa0;
+            font-size: 1.4rem;
+            margin-bottom: 1.2rem;
+            text-align: center;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .bio-scroll {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .bio-section {
+            margin-bottom: 1.2rem;
+        }
+
+        .bio-section h4 {
+            color: #2c5aa0;
+            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+        }
+
+        .bio-section p {
+            font-size: 2.2rem;
+            line-height: 1.5;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .bio-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .bio-list li {
+            font-size: 0.85rem;
+            padding: 0.25rem 0;
+            position: relative;
+            padding-left: 1.2rem;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .bio-list li:before {
+            content: "•";
+            color: #ff6b35;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        .availability {
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            color: #333;
+        }
+
+        .availability strong {
+            color: #2c5aa0;
+        }
+
+        /* Button Styling */
+        .btn-appt {
+            background: linear-gradient(45deg, #2c5aa0, #1e4080);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: auto;
+            align-self: center;
+            transition: all 0.3s;
+            font-weight: 500;
+            width: max-content;
+        }
+
+        .btn-appt:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(44, 90, 160, 0.3);
+            background: linear-gradient(45deg, #1e4080, #2c5aa0);
+        }
+
+        /* Scrollbar Styling */
+        .bio-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .bio-scroll::-webkit-scrollbar-track {
+            background: #f5f5f5;
+            border-radius: 3px;
+        }
+
+        .bio-scroll::-webkit-scrollbar-thumb {
+            background: #2c5aa0;
+            border-radius: 3px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .departments-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .department-card {
+                height: 400px;
+                max-width: 350px;
+                margin: 0 auto;
+            }
+            
+            .card-back {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .department-card {
+                height: 420px;
+            }
+        }
+        /* Chat Widget Styles */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+        }
+
+        .chat-icon {
+            background: #2c5aa0;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        .pulse-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            animation: pulse-ring 2s infinite;
+        }
+
+        .chat-label {
+            background: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .chat-widget:hover .chat-label {
+            opacity: 1;
+        }
+
+        .chat-box {
+            width: 300px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+            overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+        }
+
+        .chat-box.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #2c5aa0, #1e4080);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h4 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .close-chat {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .chat-messages {
+            padding: 15px;
+            height: 200px;
+            overflow-y: auto;
+        }
+
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 15px;
+            max-width: 80%;
+        }
+
+        .chat-message.bot {
+            background: #f0f4f8;
+            border-bottom-left-radius: 5px;
+            align-self: flex-start;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .chat-input button {
+            background: #2c5aa0;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 15px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(1.3); opacity: 0; }
+        }
+        /* Social Media Section Styles */
+        .social-media-section {
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .social-media-section h3 {
+            color: #2c5aa0;
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .social-media-section h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b35, #f7931e);
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .social-icon:hover::before {
+            left: 100%;
+        }
+
+        .social-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+            margin-bottom: 5px;
+            transition: transform 0.3s;
+        }
+
+        .social-icon span {
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .social-icon:hover svg {
+            transform: scale(1.2);
+        }
+
+        .social-icon:hover span {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Individual social media colors */
+        .social-icon.facebook { background: #3b5998; }
+        .social-icon.twitter { background: #1da1f2; }
+        .social-icon.instagram { 
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+        }
+        .social-icon.linkedin { background: #0077b5; }
+        .social-icon.youtube { background: #ff0000; }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .social-icons {
+                gap: 0.5rem;
+            }
+            
+            .social-icon {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .social-icon svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        .map-container {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 16px rgba(44,90,160,0.12);
+            margin-bottom: 2rem;
+            border: 1px solid #2c5aa0;
+            background: #fff;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #location {
+            padding: 48px 0 32px 0;
+            background: #f7fafd;
+        }
+
+        #location h2 {
+            color: #153766;
+            text-align: center;
+            font-size: 1.8rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            background: none;
+            padding-bottom: 0.4rem;
+        }
+
+        #location h2::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 5px;
+            margin: 0.6rem auto 0 auto;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #ff9800 0%, #ff5500 100%);
+            box-shadow: 0 2px 8px #ff980044;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 800px) {
+            .map-container {
+                max-width: 100%;
+                margin-bottom: 1.2rem;
+            }
+            #location {
+                padding: 32px 0 20px 0;
+            }
+            #location h2 {
+                font-size: 1.4rem;
+            }
+            #location h2::after {
+                width: 38px;
+                height: 4px;
+                margin-top: 0.4rem;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .map-container {
+                border-radius: 7px;
+                margin-bottom: 0.7rem;
+            }
+            #location {
+                padding: 18px 0 10px 0;
+            }
+            #location h2 {
+                font-size: 1.13rem;
+                padding-bottom: 0.2rem;
+            }
+            #location h2::after {
+                width: 28px;
+                height: 3px;
+                margin-top: 0.25rem;
+            }
+            .map-container iframe {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <img src="https://baserow-backend-production20240528124524339000000001.s3.amazonaws.com/user_files/AWc60AlCjrxSkhf6YVM2ribApmfBfG6A_c60af91bb0a5310b562d7d5e397b88127ca4d440f2e20d2acc0c420bc5bec86d.png" alt="ASI Ukpo Hospital Logo">
+                ASI Ukpo Hospital
+            </div>
+            <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li>
+                    <a href="#home">Home</a>
+                </li>
+                <li>
+                    <a href="#services">Services</a>
+                </li>
+                <li class="dropdown mega">
+                    <a href="#department">Departments</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-col">
+                            <a href="#oncology">
+                                <span class="menu-icon">
+                                    <img src="https://img.icons8.com/doodle/48/oncology.png" alt="Oncology">
+                                </span>
+                                <span>
+                                    <strong>Oncology</strong>
+                                    <span class="menu-desc">Cancer care & radiotherapy</span>
+                                </span>
+                            </a>
+                            <a href="#gopd">
+                                <span class="menu-icon">
+                                    <img src="https://img.icons8.com/doodle/48/stethoscope.png" alt="GOPD">
+                                </span>
+                                <span>
+                                    <strong>GOPD</strong>
+                                    <span class="menu-desc">Outpatient general care</span>
+                                </span>
+                            </a>
+                            <a href="#ipd">
+                                <span class="menu-icon">
+                                    <img src="https://img.icons8.com/doodle/48/hospital-room.png" alt="IPD">
+                                </span>
+                                <span>
+                                    <strong>IPD</strong>
+                                    <span class="menu-desc">Inpatient wards & nursing</span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="mega-menu-col">
+                            <a href="#pathology">
+                                <span class="menu-icon">
+                                    <img src="https://img.icons8.com/doodle/48/test-tube.png" alt="Pathology">
+                                </span>
+                                <span>
+                                    <strong>Pathology</strong>
+                                    <span class="menu-desc">Lab & blood tests</span>
+                                </span>
+                            </a>
+                            <a href="#radiology">
+                                <span class="menu-icon">
+                                    <img src="https://img.icons8.com/doodle/48/x-ray.png" alt="Radiology">
+                                </span>
+                                <span>
+                                    <strong>Radiology</strong>
+                                    <span class="menu-desc">Imaging & diagnosis</span>
+                                </span>
+                            </a>
+                            <a href="#pharmacy">
+                                <span class="menu-icon">
+                                    <img src="https://img.icons8.com/doodle/48/pills.png" alt="Pharmacy">
+                                </span>
+                                <span>
+                                    <strong>Pharmacy</strong>
+                                    <span class="menu-desc">Medications & advice</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#about">About</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#about-us">About Us</a>
+                        </li>
+                        <li>
+                            <a href="#message-ed">Message from the ED</a>
+                        </li>
+                        <li>
+                            <a href="#management">Management</a>
+                        </li>
+                        <li>
+                            <a href="#founder">The Founder</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#contact">Contact</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="hero">
+        <div class="hero-parallax layer-bg"></div>
+        <div class="hero-parallax layer-mid"></div>
+        <div class="hero-parallax layer-fg"></div>
+        <div id="lottie-hero" class="lottie-overlay" aria-hidden="true"></div>
+        <div class="hero-slideshow">
+            <div class="hero-slide active" style="background-image:url('https://rnn.ng/wp-content/uploads/2021/03/Calabar.jpg?auto=format&fit=crop&w=1200&q=80');">
+                <div class="hero-caption caption-anim">
+                    <h1>Premier Healthcare in Calabar</h1>
+                    <p>Advanced oncology care, comprehensive diagnostics, and compassionate treatment in the heart of Calabar, Nigeria.</p>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn btn-primary">Book Appointment</a>
+                        <a href="#services" class="btn btn-secondary">Our Services</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-slide" style="background-image:url('https://cancer.asiukpo.com/img/radiotherapy.jpg?auto=format&fit=crop&w=1200&q=80');">
+                <div class="hero-caption caption-anim">
+                    <h1>Advanced Medical Departments</h1>
+                    <p>From diagnostics to surgery, our specialists cover every need.</p>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn btn-primary">Book Appointment</a>
+                        <a href="#services" class="btn btn-secondary">Our Services</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-slide" style="background-image:url('https://www.careerstaff.com/wp-content/uploads/2023/01/benefits-of-patient-centered-care-for-healthcare-employers.jpg?auto=format&fit=crop&w=1200&q=80');">
+                <div class="hero-caption caption-anim">
+                    <h1>Patient-Centered Approach</h1>
+                    <p>We put your well-being at the heart of everything we do.</p>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn btn-primary">Book Appointment</a>
+                        <a href="#services" class="btn btn-secondary">Our Services</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- HERO SECTION END -->
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Our Specialized Services</h2>
+            <div class="services-carousel-window">
+                <!-- Carousel Left Button -->
+                <button class="carousel-control prev" aria-label="Previous Service">&#10094;</button>
+                <!-- Carousel Track -->
+                <div class="services-carousel-track">
+                    <!-- Oncology Unit -->
+                    <div class="service-card">
+                        <img class="service-image lazy" data-src="https://images.unsplash.com/photo-1579684453423-f84349ef60b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Oncology Unit">
+                        <div class="service-content">
+                            <h3>Oncology Centre</h3>
+                            <p>Comprehensive cancer care with advanced treatment options and compassionate support for every patient.</p>
+                            <ul class="service-list">
+                                <li>Cancer Diagnosis & Staging</li>
+                                <li>Chemotherapy Treatment</li>
+                                <li>Brachytherapy</li>
+                                <li>Radiotherapy</li>
+                                <li>Oncology Consultation</li>
+                                <li>Cancer Support Services</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Pathology Laboratory -->
+                    <div class="service-card">
+                        <img class="service-image lazy" data-src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Pathology Laboratory">
+                        <div class="service-content">
+                            <h3>Pathology Laboratory</h3>
+                            <p>State-of-the-art diagnostics with a wide range of laboratory investigations for accurate and timely results.</p>
+                            <ul class="service-list">
+                                <li>Hematology Testing</li>
+                                <li>Microbiology Services</li>
+                                <li>Histopathology Analysis</li>
+                                <li>Chemical Pathology</li>
+                                <li>Blood Banking Services</li>
+                                <li>Specialized Testing</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Radiology & Imaging -->
+                    <div class="service-card">
+                        <img class="service-image lazy" data-src="https://images.unsplash.com/photo-1581595219315-a187dd40c322?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Radiology & Imaging">
+                        <div class="service-content">
+                            <h3>Radiology & Imaging</h3>
+                            <p>Advanced imaging solutions using cutting-edge technology for precise diagnostic outcomes.</p>
+                            <ul class="service-list">
+                                <li>MRI Scanning</li>
+                                <li>CT Imaging</li>
+                                <li>Ultrasound (Sono)</li>
+                                <li>X-Ray Services</li>
+                                <li>Echocardiography</li>
+                                <li>ECG Testing</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- General Outpatient Department (GOPD) -->
+                    <div class="service-card">
+                        <img class="service-image lazy" data-src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="GOPD">
+                        <div class="service-content">
+                            <h3>General Outpatient Department (GOPD)</h3>
+                            <p>Comprehensive primary healthcare services delivered with efficiency and personalized attention.</p>
+                            <ul class="service-list">
+                                <li>General Consultation</li>
+                                <li>Preventive Care</li>
+                                <li>Chronic Disease Management</li>
+                                <li>Minor Procedures</li>
+                                <li>Vaccinations</li>
+                                <li>Health Education</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Inpatient Department (IPD) -->
+                    <div class="service-card">
+                        <img class="service-image lazy" data-src="https://images.unsplash.com/photo-1584473457406-6240486418e9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="IPD">
+                        <div class="service-content">
+                            <h3>Inpatient Department (IPD)</h3>
+                            <p>Comfortable wards and around-the-clock nursing care for all admitted patients.</p>
+                            <ul class="service-list">
+                                <li>Private & General Wards</li>
+                                <li>24/7 Nursing Care</li>
+                                <li>Post-Surgical Care</li>
+                                <li>Specialized Monitoring</li>
+                                <li>Patient Support Services</li>
+                                <li>Visiting Hours</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Pharmacy -->
+                    <div class="service-card">
+                        <img class="service-image lazy" data-src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Pharmacy">
+                        <div class="service-content">
+                            <h3>Pharmacy</h3>
+                            <p>Comprehensive pharmaceutical care with a fully stocked pharmacy for all your medication needs.</p>
+                            <ul class="service-list">
+                                <li>Prescription Dispensing</li>
+                                <li>Over-the-Counter Medications</li>
+                                <li>Compounding Services</li>
+                                <li>Medication Counseling</li>
+                                <li>Chronic Disease Management</li>
+                                <li>Immunizations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Dialysis Unit -->
+                    <div class="service-card">
+                        <img class="service-image lazy" data-src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Dialysis Unit">
+                        <div class="service-content">
+                            <h3>Dialysis Unit</h3>
+                            <p>Modern hemodialysis services, expert care for patients with renal conditions, and ongoing support.</p>
+                            <ul class="service-list">
+                                <li>Hemodialysis</li>
+                                <li>Peritoneal Dialysis</li>
+                                <li>Vascular Access Care</li>
+                                <li>Nutritional Counseling</li>
+                                <li>Renal Education</li>
+                                <li>Support Groups</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Carousel Right Button -->
+                <button class="carousel-control next" aria-label="Next Service">&#10095;</button>
+            </div>
+            <!-- Progress Bar -->
+            <div class="carousel-progress-bar">
+                <div class="carousel-progress"></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section (responsive version) -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Leading Healthcare in Calabar</h2>
+                    <p>ASI Ukpo Hospital stands as a beacon of medical excellence in Calabar, Nigeria. Our commitment to providing world-class healthcare services is reflected in our specialized oncology unit and comprehensive diagnostic capabilities.</p>
+                    <div class="video-container">
+                        <iframe width="100%" height="215"
+                            src="https://www.youtube.com/embed/FBKDbXLjMQo?autoplay=1&mute=1&loop=1&playlist=FBKDbXLjMQo&controls=0"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <p>With cutting-edge technology and a team of dedicated healthcare professionals, we offer personalized treatment plans and compassionate care to every patient who walks through our doors.</p>
+                    <p>Our mission is to deliver exceptional healthcare services that combine advanced medical technology with the human touch, ensuring the best possible outcomes for our patients and their families.</p>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <span class="stat-number" data-target="10">0</span><span class="stat-suffix">+</span>
+                        <div class="stat-label">Years of Excellence</div>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" data-target="3000">0</span><span class="stat-suffix">+</span>
+                        <div class="stat-label">Medical Investigations</div>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" data-target="10000">0</span><span class="stat-suffix">+</span>
+                        <div class="stat-label">Patients Treated</div>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" data-target="24">0</span><span class="stat-suffix">/7</span>
+                        <div class="stat-label">Emergency Care</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="location">
+        <h2>Find Us</h2>
+        <div class="map-container">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3974.90614094316!2d8.332086674427021!3d4.955266195020894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x106786489e1e9917%3A0x45e83d3f1148e0fa!2sASI%20Ukpo%20Hospitals!5e0!3m2!1sen!2sng!4v1748625997852!5m2!1sen!2sng"
+                width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </section>   
+
+    <section class="departments" id="departments">
+        <div class="container">
+            <h2 class="section-title">Building Trust, Delivering Excellence in Healthcare</h2>
+            <div class="departments-grid">
+                <!-- Unmatched Expertise -->
+                <div class="department-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="img-container">
+                                <img src="https://images.unsplash.com/photo-1579684453423-f84349ef60b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Medical Team">
+                            </div>
+                            <h3>Unmatched Expertise</h3>
+                            <div class="specialty-badge">Our Strength</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="back-content">
+                                <h3>Unmatched Expertise</h3>
+                                <div class="bio-content">
+                                    <p>Our dedicated team of doctors, nurses, and specialists are at the forefront of medical knowledge, blending deep expertise with continuous learning to deliver care that meets the highest standards. With specialized training in oncology, surgery, and diagnostics, we bring unmatched skill and compassion to every patient encounter.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Cutting-Edge Technology -->
+                <div class="department-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="img-container">
+                                <img src="https://images.unsplash.com/photo-1579165466749-5650df9d3b9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Medical Technology">
+                            </div>
+                            <h3>Cutting-Edge Technology</h3>
+                            <div class="specialty-badge">Our Tools</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="back-content">
+                                <h3>Cutting-Edge Technology</h3>
+                                <div class="bio-content">
+                                    <p>We harness the power of advanced medical technology—from state-of-the-art imaging to precision diagnostics and innovative treatment options. Our commitment to investing in the latest tools ensures you receive the most accurate diagnosis and effective care, minimizing wait times and maximizing results.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Compassionate Service -->
+                <div class="department-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="img-container">
+                                <img src="https://baserow-backend-production20240528124524339000000001.s3.amazonaws.com/user_files/6onue5inErT07Hz3B6nrr4f00TsucRvh_006144108299e44fdc1ad4aeda9e460da49e94c251e223ec2986481ab5e94651.jpeg?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Hospital Facilities">
+                            </div>
+                            <h3>Compassionate Service</h3>
+                            <div class="specialty-badge">Our Approach</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="back-content">
+                                <h3>Compassionate Service</h3>
+                                <div class="bio-content">
+                                    <p>At ASI Ukpo Hospital, we see you as more than a patient. We listen, we understand, and we care deeply about your comfort and well-being. Every member of our staff is committed to creating a warm, welcoming environment where you feel heard, respected, and supported throughout your healthcare journey.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Comfortable Facilities -->
+                <div class="department-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="img-container">
+                                <img src="https://images.unsplash.com/photo-1505692952047-1a78307da8f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Hospital Facilities">
+                            </div>
+                            <h3>Comfortable Facilities</h3>
+                            <div class="specialty-badge">Our Environment</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="back-content">
+                                <h3>Comfortable Facilities</h3>
+                                <div class="bio-content">
+                                    <p>Healing happens best in spaces designed for care and comfort. Our hospital features clean, modern, and thoughtfully designed environments that promote rest, recovery, and peace of mind. From private rooms to family-friendly waiting areas, we ensure a positive experience at every step.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Proven Track Record -->
+                <div class="department-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="img-container">
+                                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Success Stories">
+                            </div>
+                            <h3>Proven Track Record</h3>
+                            <div class="specialty-badge">Our Results</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="back-content">
+                                <h3>Proven Track Record</h3>
+                                <div class="bio-content">
+                                    <p>With thousands of successful treatments, surgeries, and diagnostic procedures, we've earned a reputation for excellence. Our patient success stories speak volumes about our dedication to delivering high-quality, evidence-based care that transforms lives.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Community Commitment -->
+                <div class="department-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="img-container">
+                                <img src="https://images.unsplash.com/photo-1527525443983-6e60c75fff46?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Community Outreach">
+                            </div>
+                            <h3>Community Commitment</h3>
+                            <div class="specialty-badge">Our Promise</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="back-content">
+                                <h3>Community Commitment</h3>
+                                <div class="bio-content">
+                                    <p>We're more than a hospital—we're part of the Calabar community. Through outreach programs, health education initiatives, and partnerships, we're dedicated to improving lives beyond our walls. Our deep roots in the community guide everything we do, from individual care to collective well-being.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Visit Us</h3>
+                    <div class="contact-item">
+                        <span class="contact-item-icon">📍</span>
+                        <div>
+                            <strong>ASI Ukpo Hospital</strong><br>
+                            Calabar, Cross River State<br>
+                            Nigeria
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-item-icon">📞</span>
+                        <div>
+                            <strong>Phone:</strong><br>
+                            +234 (0) 123 456 7890<br>
+                            +234 (0) 123 456 7891
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-item-icon">✉️</span>
+                        <div>
+                            <strong>Email:</strong><br>
+                            info@asiukpohospital.com<br>
+                            appointments@asiukpohospital.com
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-item-icon">🕒</span>
+                        <div>
+                            <strong>Hours:</strong><br>
+                            24/7 Emergency Services<br>
+                            Mon-Fri: 8AM-6PM (Outpatient)
+                        </div>
+                    </div>
+                    <div class="social-media-section">
+                        <h3>Find Us On Social Media</h3>
+                        <div class="social-icons">
+                            <a href="#" class="social-icon facebook">
+                                <svg viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+                                <span>Facebook</span>
+                            </a>
+                            <a href="#" class="social-icon twitter">
+                                <svg viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/></svg>
+                                <span>Twitter</span>
+                            </a>
+                            <a href="#" class="social-icon instagram">
+                                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                                <span>Instagram</span>
+                            </a>
+                            <a href="#" class="social-icon linkedin">
+                                <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                                <span>LinkedIn</span>
+                            </a>
+                            <a href="#" class="social-icon youtube">
+                                <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                <span>YouTube</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ASI Ukpo Hospital</h3>
+                    <p>Committed to providing exceptional healthcare services with compassion, innovation, and excellence in medical care.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Oncology Care</a></li>
+                        <li><a href="#">Laboratory Services</a></li>
+                        <li><a href="#">Radiology & Imaging</a></li>
+                        <li><a href="#">GOPD Services</a></li>
+                        <li><a href="#">Inpatient Care</a></li>
+                        <li><a href="#">Dialysis</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Doctors</a></li>
+                        <li><a href="#">Patient Portal</a></li>
+                        <li><a href="#">Insurance</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">News & Events</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Emergency</h3>
+                    <p><strong>24/7 Emergency Line:</strong></p>
+                    <p>+234 (0) 123 456 7890</p>
+                    <p>For life-threatening emergencies, call immediately or visit our emergency department.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ASI Ukpo Hospital. All rights reserved. | Calabar, Nigeria</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Appointment Modal -->
+    <div id="appointmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('appointmentModal')">&times;</span>
+            <h2 style="color: #2c5aa0; margin-bottom: 1.5rem;">Book an Appointment</h2>
+            <form id="appointmentForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="apt-name">Full Name</label>
+                        <input type="text" id="apt-name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apt-phone">Phone Number</label>
+                        <input type="tel" id="apt-phone" name="phone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="apt-email">Email Address</label>
+                    <input type="email" id="apt-email" name="email" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="apt-service">Department</label>
+                        <select id="apt-service" name="service" required>
+                            <option value="">Select Department</option>
+                            <option value="oncology">Oncology</option>
+                            <option value="pathology">Pathology Lab</option>
+                            <option value="radiology">Radiology</option>
+                            <option value="gopd">GOPD</option>
+                            <option value="ipd">Inpatient</option>
+                            <option value="pharmacy">Pharmacy</option>
+                            <option value="dialysis">Dialysis</option>
+                            <option value="general">General Consultation</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="apt-date">Preferred Date</label>
+                        <input type="date" id="apt-date" name="date" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="apt-time">Preferred Time</label>
+                    <select id="apt-time" name="time" required>
+                        <option value="">Select Time</option>
+                        <option value="09:00">9:00 AM</option>
+                        <option value="10:00">10:00 AM</option>
+                        <option value="11:00">11:00 AM</option>
+                        <option value="14:00">2:00 PM</option>
+                        <option value="15:00">3:00 PM</option>
+                        <option value="16:00">4:00 PM</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="apt-reason">Reason for Visit</label>
+                    <textarea id="apt-reason" name="reason" rows="3" placeholder="Brief description of your concern..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Book Appointment</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Inquiry Modal -->
+    <div id="inquiryModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('inquiryModal')">&times;</span>
+            <h2 style="color: #2c5aa0; margin-bottom: 1.5rem;">Make an Inquiry</h2>
+            <form id="inquiryForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="inq-name">Full Name</label>
+                        <input type="text" id="inq-name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inq-phone">Phone Number</label>
+                        <input type="tel" id="inq-phone" name="phone">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inq-email">Email Address</label>
+                    <input type="email" id="inq-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="inq-category">Inquiry Category</label>
+                    <select id="inq-category" name="category" required>
+                        <option value="">Select Category</option>
+                        <option value="services">Services Information</option>
+                        <option value="insurance">Insurance & Billing</option>
+                        <option value="doctors">Doctor Information</option>
+                        <option value="facilities">Hospital Facilities</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inq-message">Your Message</label>
+                    <textarea id="inq-message" name="message" rows="4" placeholder="Please describe your inquiry in detail..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Inquiry</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+
+        // Responsive Header & Navigation Effects
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const header = document.querySelector('header');
+            const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+            const navToggle = document.querySelector('.nav-toggle');
+            const navMenu = document.querySelector('.nav-links');
+            const dropdowns = document.querySelectorAll('.dropdown, .mega');
+
+            // Shrink header on scroll for dynamic effect
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 60) {
+                    header.classList.add('shrunk');
+                } else {
+                    header.classList.remove('shrunk');
+                }
+            });
+
+            // Highlight active nav link on scroll
+            window.addEventListener('scroll', () => {
+                let fromTop = window.scrollY + 100;
+                navLinks.forEach(link => {
+                    let section = document.querySelector(link.hash);
+                    if (
+                        section &&
+                        section.offsetTop <= fromTop &&
+                        section.offsetTop + section.offsetHeight > fromTop
+                    ) {
+                        navLinks.forEach(l => l.classList.remove('active'));
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // Hamburger menu toggle for mobile
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', function () {
+                    navToggle.classList.toggle('open');
+                    navMenu.classList.toggle('open');
+                    navToggle.setAttribute('aria-expanded', navMenu.classList.contains('open'));
+                });
+            }
+
+            // Mobile dropdown/mega menu open/close
+            dropdowns.forEach(function (drop) {
+                drop.addEventListener('click', function (e) {
+                    // Only toggle if in mobile view
+                    if (window.innerWidth <= 768) {
+                        e.stopPropagation();
+                        dropdowns.forEach(d => {
+                            if (d !== drop) d.classList.remove('open');
+                        });
+                        drop.classList.toggle('open');
+                    }
+                });
+            });
+
+            // Close nav on link click (mobile)
+            document.querySelectorAll('.nav-links a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    if (window.innerWidth <= 768 && navMenu.classList.contains('open')) {
+                        navMenu.classList.remove('open');
+                        navToggle.classList.remove('open');
+                        navToggle.setAttribute('aria-expanded', 'false');
+                        dropdowns.forEach(d => d.classList.remove('open'));
+                    }
+                });
+            });
+
+            // Optional: handle mega menu keyboard accessibility (focus in/out)
+            document.querySelectorAll('.mega').forEach(mega => {
+                mega.addEventListener('focusin', () => {
+                    mega.classList.add('focused');
+                    const menu = mega.querySelector('.mega-menu');
+                    if (menu) menu.style.display = 'flex';
+                });
+                mega.addEventListener('focusout', () => {
+                    mega.classList.remove('focused');
+                    const menu = mega.querySelector('.mega-menu');
+                    if (menu) menu.style.display = '';
+                });
+            });
+
+            // Optional: close any open dropdown/mega on click outside (for mobile/keyboard users)
+            document.addEventListener('click', (e) => {
+                dropdowns.forEach(drop => {
+                    if (!drop.contains(e.target)) {
+                        drop.classList.remove('open');
+                        const menu = drop.querySelector('.dropdown-menu, .mega-menu');
+                        if (menu) menu.style.display = '';
+                    }
+                });
+            });
+
+            // Prevent mega menu from being cut off by the right edge (desktop only)
+            document.querySelectorAll('.mega').forEach(mega => {
+                mega.addEventListener('mouseenter', function () {
+                    if (window.innerWidth <= 768) return;
+                    const menu = mega.querySelector('.mega-menu');
+                    if (!menu) return;
+                    // Reset first
+                    menu.style.left = '';
+                    menu.style.right = '';
+                    menu.style.transform = '';
+                    // Calculate
+                    const rect = menu.getBoundingClientRect();
+                    if (rect.right > window.innerWidth) {
+                        // Shift left so right edge aligns with viewport
+                        const over = rect.right - window.innerWidth + 16;
+                        menu.style.left = `calc(0px - ${over}px)`;
+                    }
+                    if (rect.left < 0) {
+                        menu.style.left = '0px';
+                    }
+                });
+                mega.addEventListener('mouseleave', function () {
+                    const menu = mega.querySelector('.mega-menu');
+                    if (!menu) return;
+                    menu.style.left = '';
+                    menu.style.right = '';
+                    menu.style.transform = '';
+                });
+            });
+
+            // Optional: Reset nav & dropdowns when resizing to desktop
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 768) {
+                    navMenu.classList.remove('open');
+                    navToggle.classList.remove('open');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                    dropdowns.forEach(d => d.classList.remove('open'));
+                }
+            });
+        });
+
+        // Stat number counter animation (run only once when .stats is visible)
+        (function() {
+            let statsAnimated = false;
+            const statsSection = document.querySelector('.stats');
+            if (!statsSection) return;
+            function animateStats() {
+                document.querySelectorAll('.stat-number').forEach(stat => {
+                    const target = +stat.getAttribute('data-target');
+                    let start = 0;
+                    let duration = target > 500 ? 1200 : 700;
+                    let startTime = null;
+                    function updateNumber(timestamp) {
+                        if (!startTime) startTime = timestamp;
+                        const progress = Math.min((timestamp - startTime) / duration, 1);
+                        const value = Math.floor(progress * target);
+                        stat.textContent = value.toLocaleString();
+                        if (progress < 1) {
+                            requestAnimationFrame(updateNumber);
+                        } else {
+                            stat.textContent = target.toLocaleString();
+                        }
+                    }
+                    requestAnimationFrame(updateNumber);
+                });
+            }
+            if ("IntersectionObserver" in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting && !statsAnimated) {
+                        animateStats();
+                        statsAnimated = true;
+                    }
+                }, { threshold: 0.4 });
+                observer.observe(statsSection);
+            } else {
+                window.addEventListener('load', animateStats);
+            }
+        })();
+
+        /* Parallax effect for background layers */
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            document.querySelector('.layer-bg').style.transform = `translateY(${scrolled * 0.2}px)`;
+            document.querySelector('.layer-mid').style.transform = `translateY(${scrolled * 0.4}px)`;
+            document.querySelector('.layer-fg').style.transform = `translateY(${scrolled * 0.6}px)`;
+        });
+
+        /* Hero Slideshow Logic */
+        const slides = document.querySelectorAll('.hero-slide');
+        const captions = document.querySelectorAll('.hero-caption');
+        let currentSlide = 0;
+        let slideInterval = setInterval(nextSlide, 9000);
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            captions[currentSlide].classList.remove('caption-in');
+            captions[currentSlide].classList.add('caption-out');
+            setTimeout(() => {
+                captions[currentSlide].classList.remove('caption-out');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+                captions[currentSlide].classList.add('caption-in');
+            }, 600);
+        }
+        slides.forEach((slide, i) => {
+            if (i === 0) captions[i].classList.add('caption-in');
+            else captions[i].classList.remove('caption-in');
+        });
+
+        /* Lottie Animation Overlay */
+        if (window.lottie) {
+            lottie.loadAnimation({
+                container: document.getElementById('lottie-hero'),
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                path: 'https://assets7.lottiefiles.com/packages/lf20_tutvdkg0.json' // Example: floating medical icons
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const track = document.querySelector('.services-carousel-track');
+            const cards = document.querySelectorAll('.service-card');
+            const prevBtn = document.querySelector('.carousel-control.prev');
+            const nextBtn = document.querySelector('.carousel-control.next');
+            const progressBar = document.querySelector('.carousel-progress');
+            
+            // State variables
+            let currentIndex = 0;
+            let interval = null;
+            let isDragging = false;
+            let startPosX = 0;
+            let startPosY = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+            let animationID = 0;
+            let cardsToShow = 3;
+            let totalCards = cards.length;
+            let isHorizontalSwipe = false;
+            let touchStartTime = 0;
+
+            // Initialize carousel
+            function initCarousel() {
+                // Responsive cards to show
+                if (window.innerWidth <= 480) {
+                    cardsToShow = 1;
+                } else if (window.innerWidth <= 768) {
+                    cardsToShow = 2;
+                } else {
+                    cardsToShow = 3;
+                }
+
+                setCardWidths();
+                updateCarousel(currentIndex);
+                setupTouchEvents();
+                lazyLoad();
+                startInterval();
+            }
+
+            // Set card width for responsive layout
+            function setCardWidths() {
+                const cardWidth = 100 / cardsToShow;
+                cards.forEach(card => {
+                    card.style.flex = `0 0 ${cardWidth}%`;
+                    card.style.maxWidth = `${cardWidth}%`;
+                });
+            }
+
+            // Move carousel to index
+            function updateCarousel(idx) {
+                const maxIndex = Math.max(totalCards - cardsToShow, 0);
+
+                if (idx > maxIndex) idx = 0;
+                if (idx < 0) idx = maxIndex;
+
+                currentIndex = idx;
+                currentTranslate = -(idx * (100 / cardsToShow));
+                track.style.transform = `translateX(${currentTranslate}%)`;
+
+                if (progressBar) {
+                    if (totalCards > cardsToShow) {
+                        const progress = (maxIndex === 0) ? 100 : (idx / maxIndex) * 100;
+                        progressBar.style.width = `${progress}%`;
+                    } else {
+                        progressBar.style.width = '100%';
+                    }
+                }
+            }
+
+            // Touch/swipe support
+            function setupTouchEvents() {
+                // Remove previous listeners (defensive)
+                track.removeEventListener('touchstart', touchStart, { passive: true });
+                track.removeEventListener('touchmove', touchMove, { passive: false });
+                track.removeEventListener('touchend', touchEnd, { passive: true });
+
+                // Add listeners
+                track.addEventListener('touchstart', touchStart, { passive: true });
+                track.addEventListener('touchmove', touchMove, { passive: false });
+                track.addEventListener('touchend', touchEnd, { passive: true });
+            }
+
+            function touchStart(e) {
+                // Only stop auto-scroll when touching a card
+                if (e.target.closest('.service-card')) {
+                    clearInterval(interval);
+                }
+                startPosX = e.touches[0].clientX;
+                startPosY = e.touches[0].clientY;
+                prevTranslate = currentTranslate;
+                isDragging = true;
+                isHorizontalSwipe = false;
+                touchStartTime = Date.now();
+                animationID = requestAnimationFrame(animation);
+                track.style.transition = 'none';
+            }
+
+            function touchMove(e) {
+                if (!isDragging) return;
+
+                const currentX = e.touches[0].clientX;
+                const currentY = e.touches[0].clientY;
+                const diffX = currentX - startPosX;
+                const diffY = currentY - startPosY;
+
+                // Detect horizontal swipe
+                if (!isHorizontalSwipe && Math.abs(diffX) > 5) {
+                    isHorizontalSwipe = Math.abs(diffX) > Math.abs(diffY) * 1.2;
+                }
+
+                if (isHorizontalSwipe) {
+                    e.preventDefault();
+                    currentTranslate = prevTranslate + (diffX / track.offsetWidth) * 100;
+                }
+            }
+
+            function touchEnd(e) {
+                if (!isDragging) return;
+                cancelAnimationFrame(animationID);
+                isDragging = false;
+
+                if (isHorizontalSwipe) {
+                    const movedBy = currentTranslate - prevTranslate;
+                    const swipeTime = Date.now() - touchStartTime;
+                    const velocity = movedBy / swipeTime;
+
+                    if (Math.abs(movedBy) > 15 || Math.abs(velocity) > 0.12) {
+                        if (movedBy < 0 && currentIndex < totalCards - cardsToShow) {
+                            currentIndex += 1;
+                        } else if (movedBy > 0 && currentIndex > 0) {
+                            currentIndex -= 1;
+                        }
+                    }
+
+                    track.style.transition = 'transform 0.3s cubic-bezier(.4,0,.2,1)';
+                    updateCarousel(currentIndex);
+                }
+
+                // Restart auto-scroll only if not holding a card
+                if (!isDragging && !isHorizontalSwipe) {
+                    resetInterval();
+                } else {
+                    // Wait a bit before restarting interval, so user can keep swiping
+                    setTimeout(resetInterval, 2000);
+                }
+            }
+
+            function animation() {
+                track.style.transform = `translateX(${currentTranslate}%)`;
+                if (isDragging) requestAnimationFrame(animation);
+            }
+
+            // Auto-scroll
+            function startInterval() {
+                if (totalCards > cardsToShow) {
+                    clearInterval(interval);
+                    interval = setInterval(() => {
+                        updateCarousel(currentIndex + 1);
+                    }, 5000);
+                }
+            }
+            function resetInterval() {
+                clearInterval(interval);
+                startInterval();
+            }
+
+            // Button controls
+            prevBtn.addEventListener('click', () => {
+                updateCarousel(currentIndex - 1);
+                resetInterval();
+            });
+            nextBtn.addEventListener('click', () => {
+                updateCarousel(currentIndex + 1);
+                resetInterval();
+            });
+
+            // Pause on hover (desktop only)
+            if (!('ontouchstart' in window)) {
+                track.addEventListener('mouseenter', () => clearInterval(interval));
+                track.addEventListener('mouseleave', startInterval);
+            }
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    updateCarousel(currentIndex - 1);
+                    resetInterval();
+                }
+                if (e.key === 'ArrowRight') {
+                    updateCarousel(currentIndex + 1);
+                    resetInterval();
+                }
+            });
+
+            // Lazy loading
+            function lazyLoad() {
+                const lazyImgs = document.querySelectorAll('.service-image.lazy:not(.loaded)');
+                lazyImgs.forEach(img => {
+                    const rect = img.getBoundingClientRect();
+                    if (rect.top < window.innerHeight + 100) {
+                        img.src = img.dataset.src;
+                        img.onload = () => img.classList.add('loaded');
+                    }
+                });
+            }
+
+            // Window events
+            window.addEventListener('scroll', lazyLoad);
+            window.addEventListener('resize', () => {
+                initCarousel();
+                lazyLoad();
+            });
+
+            // Initialize
+            initCarousel();
+        });
+        // Flip Card Functionality
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+        }
+
+        // Auto-rotate cards (optional)
+        function autoRotateCards() {
+            const cards = document.querySelectorAll('.department-card');
+            let visibleCard = 0;
+            
+            setInterval(() => {
+                // Reset all cards
+                cards.forEach(card => card.classList.remove('flipped'));
+                
+                // Flip next card
+                cards[visibleCard].classList.add('flipped');
+                visibleCard = (visibleCard + 1) % cards.length;
+            }, 8000); // Rotate every 8 seconds
+        }
+
+        // Initialize after page load
+        window.addEventListener('DOMContentLoaded', () => {
+            autoRotateCards();
+        });
+
+        // Chat Widget Functionality
+        function toggleChat() {
+            const chatBox = document.getElementById('chatBox');
+            const chatWidget = document.getElementById('chatWidget');
+            
+            chatBox.classList.toggle('active');
+            chatWidget.style.animation = 'none'; // Stop pulsing when opened
+            
+            // Restart animation if chat is closed
+            if (!chatBox.classList.contains('active')) {
+                setTimeout(() => {
+                    chatWidget.style.animation = 'pulse 2s infinite';
+                }, 100);
+            }
+        }
+
+        // Close chat when clicking outside
+        document.addEventListener('click', function(e) {
+            const chatWidget = document.getElementById('chatWidget');
+            if (!chatWidget.contains(e.target)) {
+                document.getElementById('chatBox').classList.remove('active');
+            }
+        });
+
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.style.display = 'none';
+            }
+        });
+
+        // Form submissions
+        document.getElementById('quickInquiryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your inquiry! We will contact you within 24 hours.');
+            this.reset();
+        });
+
+        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Your appointment request has been submitted! We will call you to confirm your appointment.');
+            this.reset();
+            closeModal('appointmentModal');
+        });
+
+        document.getElementById('inquiryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your inquiry! We will respond to you as soon as possible.');
+            this.reset();
+            closeModal('inquiryModal');
+        });
+
+        // Set minimum date for appointment booking
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('apt-date').setAttribute('min', today);
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(44, 90, 160, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #2c5aa0 0%, #1e4080 100%)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+        
+    </script>
+    <!-- Chat Widget -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-icon" onclick="toggleChat()">
+            💬
+            <div class="pulse-animation"></div>
+        </div>
+        <div class="chat-box" id="chatBox">
+            <div class="chat-header">
+                <h4>Chat Support</h4>
+                <span class="close-chat" onclick="toggleChat()">×</span>
+            </div>
+            <div class="chat-messages">
+                <div class="chat-message bot">
+                    Hello! We're online. How can we help you today?
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" placeholder="Type your message...">
+                <button>Send</button>
+            </div>
+        </div>
+        <div class="chat-label">Chat with us. We are online</div>
+    </div>
+
+</body>
+</html>
