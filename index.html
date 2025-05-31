@@ -1,43 +1,79 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Protected Site</title>
-        <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-        <script>
-            // Initialize Supabase
-            const supabaseUrl = 'https://lskigydzrnfnxjsobzlk.supabase.co'
-            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxza2lneWR6cm5mbnhqc29iemxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg3MTYyMTksImV4cCI6MjA2NDI5MjIxOX0.JV1e-2JutVwPsCIJUjzx8g-zi9TAEoxmPtZ2j0eWGOs'
-            const supabase = supabase.createClient(supabaseUrl, supabaseKey)
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Analytics Tracker</title>
+    
+    <!-- Supabase Client -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script>
+        // Initialize Supabase
+        const supabaseUrl = 'https://lskigydzrnfnxjsobzlk.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxza2lneWR6cm5mbnhqc29iemxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg3MTYyMTksImV4cCI6MjA2NDI5MjIxOX0.JV1e-2JutVwPsCIJUjzx8g-zi9TAEoxmPtZ2j0eWGOs';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        
+        // Check authentication status when page loads
+        document.addEventListener('DOMContentLoaded', async function() {
+            const { data: { session } } = await supabase.auth.getSession();
             
-            // Check auth state on page load
-            supabase.auth.onAuthStateChange(async (event, session) => {
-                if (!session) {
-                    // If not logged in, redirect to login page
+            // If no session, redirect to login page
+            if (!session) {
+                window.location.href = '/login.html';
+                return;
+            }
+            
+            // If authenticated, initialize Google Analytics
+            initializeGoogleAnalytics();
+            
+            // Set up auth state listener for future changes
+            supabase.auth.onAuthStateChange((event, session) => {
+                if (!session && event !== 'INITIAL_SESSION') {
                     window.location.href = '/login.html';
                 }
             });
-        </script>
-    </head>
-    <body>
-        <!-- Your protected content goes here -->
-        <div id="protected-content" style="display: none;">
-            <h1>Welcome to the protected page!</h1>
-            <button id="sign-out">Sign Out</button>
-        </div>
-
-        <script>
-            // Show content only when authenticated
-            supabase.auth.getSession().then(({ data: { session } }) => {
-                if (session) {
-                    document.getElementById('protected-content').style.display = 'block';
+        });
+        
+        function initializeGoogleAnalytics() {
+            // Google tag (gtag.js)
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-Z61DF1XYD5';
+            document.head.appendChild(script);
+            
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-Z61DF1XYD5');
+            
+            // Optional: Send user ID to GA if you want to track authenticated users
+            supabase.auth.getUser().then(({ data: { user } }) => {
+                if (user) {
+                    gtag('set', {'user_id': user.id});
                 }
             });
-
-            // Sign out button
-            document.getElementById('sign-out').addEventListener('click', async () => {
-                await supabase.auth.signOut();
+        }
+    </script>
+</head>
+<body>
+    <h1>Tracking Enabled</h1>
+    <p>This page is being tracked by Google Analytics and is protected by authentication.</p>
+    
+    <!-- Optional: Add logout button -->
+    <button id="logoutBtn" style="margin-top: 20px; padding: 8px 16px; cursor: pointer;">
+        Logout
+    </button>
+    
+    <script>
+        // Add logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', async function() {
+            const { error } = await supabase.auth.signOut();
+            if (!error) {
                 window.location.href = '/login.html';
-            });
-        </script>
-    </body>
+            } else {
+                alert('Error logging out: ' + error.message);
+            }
+        });
+    </script>
+</body>
 </html>
