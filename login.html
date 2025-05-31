@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+        <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+        <script>
+            const supabaseUrl = 'YOUR_SUPABASE_URL'
+            const supabaseKey = 'YOUR_SUPABASE_PUBLIC_KEY'
+            const supabase = supabase.createClient(supabaseUrl, supabaseKey)
+        </script>
+    </head>
+    <body>
+        <h1>Login</h1>
+        
+        <!-- Email/Password Login -->
+        <div>
+            <input type="email" id="email" placeholder="Email">
+            <input type="password" id="password" placeholder="Password">
+            <button id="sign-in">Sign In</button>
+        </div>
+        
+        <!-- Or OAuth providers -->
+        <button id="sign-in-google">Sign In with Google</button>
+
+        <script>
+            // Email/password login
+            document.getElementById('sign-in').addEventListener('click', async () => {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+                
+                if (error) {
+                    alert(error.message);
+                } else {
+                    window.location.href = '/'; // Redirect to protected page
+                }
+            });
+            
+            // Google OAuth login
+            document.getElementById('sign-in-google').addEventListener('click', async () => {
+                const { data, error } = await supabase.auth.signInWithOAuth({
+                    provider: 'google',
+                });
+                
+                if (error) {
+                    alert(error.message);
+                }
+            });
+            
+            // Check if user is already logged in
+            supabase.auth.getSession().then(({ data: { session } }) => {
+                if (session) {
+                    window.location.href = '/';
+                }
+            });
+        </script>
+    </body>
+</html>
